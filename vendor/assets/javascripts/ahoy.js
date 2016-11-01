@@ -62,6 +62,7 @@
   function setCookie(name, value, ttl) {
     var expires = "";
     var cookieDomain = "";
+    var secureFlag = isSSL() ? "; secure" : "";
     if (ttl) {
       var date = new Date();
       date.setTime(date.getTime() + (ttl * 60 * 1000));
@@ -71,7 +72,7 @@
     if (domain) {
       cookieDomain = "; domain=" + domain;
     }
-    document.cookie = name + "=" + escape(value) + expires + cookieDomain + "; path=/";
+    document.cookie = name + "=" + escape(value) + expires + cookieDomain + secureFlag + "; path=/";
   }
 
   function getCookie(name) {
@@ -114,6 +115,10 @@
     } else {
       queue.push(callback);
     }
+  }
+
+  function isSSL() {
+    return 'https:' == document.location.protocol;
   }
 
   // http://stackoverflow.com/a/2117523/1177228
