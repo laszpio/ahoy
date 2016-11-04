@@ -19,7 +19,8 @@
     page: null,
     platform: "Web",
     useBeacon: false,
-    startOnReady: true
+    startOnReady: true,
+    forceSecure: isSSL()
   };
 
   var ahoy = window.ahoy || window.Ahoy || {};
@@ -62,7 +63,8 @@
   function setCookie(name, value, ttl) {
     var expires = "";
     var cookieDomain = "";
-    var secureFlag = isSSL() ? "; secure" : "";
+    var secureFlag = config.forceSecure ? "; secure" : "";
+
     if (ttl) {
       var date = new Date();
       date.setTime(date.getTime() + (ttl * 60 * 1000));
